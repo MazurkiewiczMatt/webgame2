@@ -1,8 +1,12 @@
 from flask import Flask, request, jsonify
 import json
-import os
+import os, sys
 
 app = Flask(__name__)
+
+path = '/home/Mazurkiewicz/webgame/webgame2'
+if path not in sys.path:
+    sys.path.append(path)
 
 # Path to the JSON file that stores user data
 USER_DATA_FILE = 'users.json'
@@ -21,6 +25,10 @@ def save_users(users):
     """Save user data to the JSON file."""
     with open(USER_DATA_FILE, 'w') as f:
         json.dump(users, f)
+
+@app.route('/')
+def hello_world():
+    return 'The server is working!'
 
 @app.route('/signup', methods=['POST'])
 def signup():
