@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, request, jsonify
 import json
 import os, sys
 import uuid
+
+from main_page import main_page
 
 app = Flask(__name__)
 
@@ -32,66 +34,8 @@ def save_users(users):
         json.dump(users, f)
 
 @app.route('/')
-def status():
-    """Display the names of active players."""
-    template = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Server Status</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f0f0f0;
-                color: #333;
-                margin: 0;
-                padding: 20px;
-            }
-            .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-            h1 {
-                color: #007BFF;
-            }
-            ul {
-                list-style-type: none;
-                padding: 0;
-            }
-            li {
-                background: #e9e9e9;
-                margin: 5px 0;
-                padding: 10px;
-                border-radius: 4px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Server Status</h1>
-            <p>Server is running!</p>
-            <h2>Active Players:</h2>
-            {% if active_players %}
-                <ul>
-                {% for player in active_players %}
-                    <li>{{ player }}</li>
-                {% endfor %}
-                </ul>
-            {% else %}
-                <p>No active players.</p>
-            {% endif %}
-        </div>
-    </body>
-    </html>
-    """
-    active_players = list(active_sessions.keys())
-    return render_template_string(template, active_players=active_players)
+def main_app():
+    main_page(active_sessions)
 
 @app.route('/signup', methods=['POST'])
 def signup():
