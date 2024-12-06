@@ -31,9 +31,10 @@ def save_users(users):
     with open(USER_DATA_FILE, 'w') as f:
         json.dump(users, f)
 
-@app.route('/')
-def hello_world():
-    return 'The server is working!'
+@app.route('/active_players', methods=['GET'])
+def active_players():
+    """Display the names of active players."""
+    return jsonify({'status': 'success', 'active_players': list(active_sessions.keys())})
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -70,6 +71,11 @@ def login():
     if username not in users or users[username] != password:
         return jsonify({'status': 'error', 'message': 'Invalid username or password'}), 400
 
+    # Check if the user is already logged in
+    if username in active_sessions:
+        session_id = active_sessions[username]
+        return jsonify({'status': 'success', 'message': 'User already logged in', 'session_id': session_id})
+
     # Generate a new session ID
     session_id = str(uuid.uuid4())
     active_sessions[username] = session_id
@@ -87,7 +93,7 @@ def logout():
         return jsonify({'status': 'error', 'message': 'Username and session ID are required'}), 400
 
     if username not in active_sessions or active_sessions[username] != session_id:
-        return jsonify({'status': 'error', 'message': 'Invalid session or user not logged in'}), 400
+        return jsonify({'status': 'error', 'message': 'Invalid session ID'}), 400
 
     # Remove the user from active sessions
     del active_sessions[username]
