@@ -1,13 +1,8 @@
 import json
-import os
 
-# Path to the JSON file that stores character data
-CHARACTER_DATA_FILE = 'characters.json'
+from .settings import *
 
-# Ensure the JSON file exists
-if not os.path.exists(CHARACTER_DATA_FILE):
-    with open(CHARACTER_DATA_FILE, 'w') as f:
-        json.dump({}, f)
+
 
 def load_characters():
     """Load character data from the JSON file."""

@@ -1,15 +1,8 @@
 import json
-import os
 from flask import jsonify
 
+from .settings import *
 
-# Path to the JSON file that stores user data
-USER_DATA_FILE = 'users.json'
-
-# Ensure the JSON file exists
-if not os.path.exists(USER_DATA_FILE):
-    with open(USER_DATA_FILE, 'w') as f:
-        json.dump({}, f)
 
 def load_users():
     """Load user data from the JSON file."""
