@@ -31,12 +31,10 @@ def character_sheet(active_sessions, characters):
 
     validate_user(username, session_id, active_sessions)
 
-    character = characters.get(username)
-
-    if not character:
+    if username not in characters:
         return jsonify({'status': 'error', 'message': 'Character not found'}), 404
-
-    return jsonify({'status': 'success', 'character': character})
+    else:
+        return jsonify({'status': 'success', 'character': characters.get(username)})
 
 def create_character(active_sessions):
     """Endpoint for creating a new character."""
