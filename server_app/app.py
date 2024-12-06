@@ -7,7 +7,7 @@ from .characters_management import character_sheet
 from state_management import load_users
 
 
-def create_app(active_sessions=None, characters=None):
+def create_app(registered_users=None, active_sessions=None, character_sheets=None):
     app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
 
     @app.route('/')
@@ -18,11 +18,11 @@ def create_app(active_sessions=None, characters=None):
 
     @app.route('/signup', methods=['POST'])
     def signup_endpoint():
-        return signup()
+        return signup(registered_users)
 
     @app.route('/login', methods=['POST'])
     def login_endpoint():
-        return login(active_sessions)
+        return login(registered_users, active_sessions)
 
     @app.route('/logout', methods=['POST'])
     def logout_endpoint():
@@ -30,7 +30,7 @@ def create_app(active_sessions=None, characters=None):
 
     @app.route('/character_sheet', methods=['POST'])
     def character_sheet_endpoint():
-        return character_sheet(active_sessions, characters)
+        return character_sheet(active_sessions, character_sheets)
 
     return app
 
