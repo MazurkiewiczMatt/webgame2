@@ -1,4 +1,4 @@
-# server.py
+# app.py
 from flask import Flask, render_template
 
 from .authentication import signup, login, logout
