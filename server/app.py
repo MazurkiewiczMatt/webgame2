@@ -20,19 +20,19 @@ def create_app(active_sessions=None, characters=None):
         return render_template('main_page.html', active_players=active_players, registered_users=registered_users)
 
     @app.route('/signup', methods=['POST'])
-    def signup():
+    def signup_endpoint():
         return signup()
 
     @app.route('/login', methods=['POST'])
-    def login():
+    def login_endpoint():
         return login(active_sessions)
 
     @app.route('/logout', methods=['POST'])
-    def logout():
+    def logout_endpoint():
         return logout(active_sessions)
 
     @app.route('/character_sheet', methods=['POST'])
-    def character_sheet():
+    def character_sheet_endpoint():
         return character_sheet(active_sessions, characters)
 
     return app
