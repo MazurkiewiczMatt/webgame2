@@ -13,8 +13,8 @@ def create_app(registered_users=None, active_sessions=None, character_sheets=Non
     @app.route('/')
     def main_app():
         active_players = list(active_sessions.keys())
-        registered_users = list(load_users().keys())
-        return render_template('main_page.html', active_players=active_players, registered_users=registered_users)
+        registered_users_list = list(registered_users.keys())
+        return render_template('main_page.html', active_players=active_players, registered_users=registered_users_list)
 
     @app.route('/signup', methods=['POST'])
     def signup_endpoint():
