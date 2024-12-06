@@ -1,7 +1,8 @@
 # server.py
 from flask import Flask, request, jsonify, render_template
-import os, sys
+import sys
 import authentication
+import characters
 
 app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
 
@@ -12,6 +13,7 @@ if path not in sys.path:
 
 # Dictionary to hold active users with session IDs
 active_sessions = {}
+characters = characters.load_characters()
 
 @app.route('/')
 def main_app():
@@ -30,6 +32,10 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
     return authentication.logout(active_sessions)
+
+@app.route('/character_sheet', methods=['POST'])
+def character_sheet():
+    return characters.character_sheet(active_sessions, characters)
 
 if __name__ == '__main__':
     app.run(debug=True)
