@@ -1,27 +1,10 @@
 # characters_management.py
-import json
 from flask import request, jsonify
-import os
 
-from authentication import validate_user
+from state_management import load_characters, save_characters
 
-# Path to the JSON file that stores character data
-CHARACTER_DATA_FILE = 'characters.json'
+from .authentication import validate_user
 
-# Ensure the JSON file exists
-if not os.path.exists(CHARACTER_DATA_FILE):
-    with open(CHARACTER_DATA_FILE, 'w') as f:
-        json.dump({}, f)
-
-def load_characters():
-    """Load character data from the JSON file."""
-    with open(CHARACTER_DATA_FILE, 'r') as f:
-        return json.load(f)
-
-def save_characters(characters):
-    """Save character data to the JSON file."""
-    with open(CHARACTER_DATA_FILE, 'w') as f:
-        json.dump(characters, f)
 
 def character_sheet(active_sessions, characters):
     """Endpoint for getting own character sheet."""
