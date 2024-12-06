@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import json
 import os, sys
 import uuid
@@ -35,7 +35,8 @@ def save_users(users):
 
 @app.route('/')
 def main_app():
-    main_page(active_sessions)
+    active_players = list(active_sessions.keys())
+    return render_template('main_page.html', active_players=active_players)
 
 @app.route('/signup', methods=['POST'])
 def signup():
