@@ -3,7 +3,7 @@ import json
 import os, sys
 import uuid
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
 
 # Add your specific path if needed for importing
 path = '/home/Mazurkiewicz/webgame/webgame2'
@@ -35,7 +35,7 @@ def save_users(users):
 def main_app():
     active_players = list(active_sessions.keys())
     registered_users = list(load_users().keys())
-    return render_template('/home/Mazurkiewicz/webgame/webgame2/main_page.html', active_players=active_players, registered_users=registered_users)
+    return render_template('main_page.html', active_players=active_players, registered_users=registered_users)
 
 @app.route('/signup', methods=['POST'])
 def signup():
