@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify, render_template
 import sys
 import authentication
-import characters
+import characters_management
 
 app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
 
@@ -35,7 +35,7 @@ def logout():
 
 @app.route('/character_sheet', methods=['POST'])
 def character_sheet():
-    return characters.character_sheet(active_sessions, characters)
+    return characters_management.character_sheet(active_sessions, characters)
 
 if __name__ == '__main__':
     app.run(debug=True)

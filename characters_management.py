@@ -1,4 +1,4 @@
-# characters.py
+# characters_management.py
 import json
 from flask import request, jsonify
 import os
