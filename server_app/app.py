@@ -10,9 +10,6 @@ from state_management import load_users
 def create_app(active_sessions=None, characters=None):
     app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
 
-    # Set default references if none provided
-
-
     @app.route('/')
     def main_app():
         active_players = list(active_sessions.keys())

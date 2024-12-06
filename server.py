@@ -1,6 +1,6 @@
 import sys
 
-from server import create_app
+from server_app import create_app
 from state_management import load_characters
 
 # Add your specific path if needed for importing
