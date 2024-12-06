@@ -31,10 +31,11 @@ def save_users(users):
     with open(USER_DATA_FILE, 'w') as f:
         json.dump(users, f)
 
-@app.route('/active_players', methods=['GET'])
-def active_players():
+@app.route('/')
+def status():
     """Display the names of active players."""
-    return jsonify({'status': 'success', 'active_players': list(active_sessions.keys())})
+    active_players_list = "\n".join(active_sessions.keys())
+    return f"Status: Success\nActive Players:\n{active_players_list}"
 
 @app.route('/signup', methods=['POST'])
 def signup():
