@@ -1,6 +1,7 @@
 import sys
 
-from server import create_app, load_characters
+from server import create_app
+from state_management import load_characters
 
 # Add your specific path if needed for importing
 path = '/home/Mazurkiewicz/webgame/webgame2'
