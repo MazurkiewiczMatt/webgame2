@@ -3,8 +3,6 @@ import json
 import os, sys
 import uuid
 
-from main_page import main_page
-
 app = Flask(__name__)
 
 # Add your specific path if needed for importing
