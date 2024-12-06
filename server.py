@@ -35,7 +35,7 @@ def save_users(users):
 def main_app():
     active_players = list(active_sessions.keys())
     registered_users = list(load_users().keys())
-    return "uhhh"
+    return render_template('home/Mazurkiewicz/webgame/webgame2/main_page.html', active_players=active_players, registered_users=registered_users)
 
 @app.route('/signup', methods=['POST'])
 def signup():
