@@ -48,6 +48,10 @@
         {% else %}
             <p>No active players.</p>
         {% endif %}
+        <h2>Registered Users:</h2>
+        {% for user in registered_users %}
+            <li>{{ user }}</li>
+        {% endfor %}
     </div>
 </body>
 </html>
