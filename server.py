@@ -8,8 +8,9 @@ path = '/home/Mazurkiewicz/webgame/webgame2'
 if path not in sys.path:
     sys.path.append(path)
 
+active_sessions = {}
+characters = load_characters()
+app = create_app(active_sessions=active_sessions, characters=characters)
+
 if __name__ == '__main__':
-    active_sessions = {}
-    characters = load_characters()
-    app = create_app(active_sessions=active_sessions, characters=characters)
     app.run(debug=True)
