@@ -13,7 +13,7 @@ if path not in sys.path:
 
 # Dictionary to hold active users with session IDs
 active_sessions = {}
-characters = characters.load_characters()
+characters = characters_management.load_characters()
 
 @app.route('/')
 def main_app():
