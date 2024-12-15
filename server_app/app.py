@@ -30,7 +30,7 @@ def create_app(registered_users=None, active_sessions=None, character_sheets=Non
 
     @app.route('/character_sheet', methods=['POST'])
     def character_sheet_endpoint():
-        return character_sheet(active_sessions, character_sheets)
+        return character_sheet(active_sessions)
 
     @app.route('/create_character', methods=['POST'])
     def create_character_endpoint():

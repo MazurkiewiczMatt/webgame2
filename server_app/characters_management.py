@@ -6,13 +6,15 @@ from state_management import load_characters, save_characters
 from .authentication import validate_user
 
 
-def character_sheet(active_sessions, characters):
+def character_sheet(active_sessions):
     """Endpoint for getting own character sheet."""
     data = request.get_json()
     username = data.get('username')
     session_id = data.get('session_id')
 
     validate_user(username, session_id, active_sessions)
+
+    characters = load_characters()
 
     if username not in characters:
         return jsonify({'status': 'error', 'message': 'Character not found'}), 404
