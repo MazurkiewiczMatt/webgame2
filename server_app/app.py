@@ -2,7 +2,7 @@
 from flask import Flask, render_template
 
 from .authentication import signup, login, logout
-from .characters_management import character_sheet
+from .characters_management import character_sheet, create_character
 
 from state_management import load_users
 
@@ -31,6 +31,10 @@ def create_app(registered_users=None, active_sessions=None, character_sheets=Non
     @app.route('/character_sheet', methods=['POST'])
     def character_sheet_endpoint():
         return character_sheet(active_sessions, character_sheets)
+
+    @app.route('/create_character', methods=['POST'])
+    def create_character_endpoint():
+        return create_character(active_sessions)
 
     return app
 

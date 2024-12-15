@@ -24,7 +24,7 @@ def create_character(active_sessions):
     data = request.get_json()
     username = data.get('username')
     session_id = data.get('session_id')
-    character_data = data.get('character_data')
+    starting_point = data.get('starting_point')
 
     validate_user(username, session_id, active_sessions)
 
@@ -33,7 +33,7 @@ def create_character(active_sessions):
     if username in characters:
         return jsonify({'status': 'error', 'message': 'Character already exists'}), 400
 
-    characters[username] = character_data
+    characters[username] = {"starting_point": starting_point}
     save_characters(characters)
 
     return jsonify({'status': 'success', 'message': 'Character created successfully'})
