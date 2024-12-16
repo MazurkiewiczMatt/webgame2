@@ -1,8 +1,7 @@
 # app.py
 from flask import Flask, render_template
 import threading
-import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .authentication import signup, login, logout
 from .characters_management import character_sheet, create_character, load_characters, save_characters
@@ -15,16 +14,15 @@ def update_function():
         else:
             character["age"] = 1
     save_characters(characters)
+    schedule_next_update()
 
 
-def update():
-    """Function to execute tasks at every :00, :20, and :40."""
-    while True:
-        now = datetime.now()
-        if now.minute % 1 == 0 and now.second == 0:
-            update_function()
-            time.sleep(1)  # Prevent multiple executions in the same second
-        time.sleep(0.5)  # Check frequently for timing
+
+def schedule_next_update():
+    now = datetime.now()
+    next_run = (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
+    delay = (next_run - now).total_seconds()
+    threading.Timer(delay, update_function).start()
 
 
 
@@ -32,8 +30,7 @@ def update():
 def create_app(registered_users=None, active_sessions=None):
     app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
 
-    task_thread = threading.Thread(target=update, daemon=True)
-    task_thread.start()
+    schedule_next_update()
 
     @app.route('/')
     def main_app():
