@@ -4,7 +4,6 @@ from flask import Flask, render_template
 from .authentication import signup, login, logout
 from .characters_management import character_sheet, create_character
 
-from state_management import load_users
 
 
 def create_app(registered_users=None, active_sessions=None, character_sheets=None):
@@ -38,8 +37,3 @@ def create_app(registered_users=None, active_sessions=None, character_sheets=Non
 
     return app
 
-
-if __name__ == '__main__':
-    # Initialize the app with default active sessions and characters
-    app = create_app()
-    app.run(debug=True)
