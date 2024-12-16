@@ -15,13 +15,11 @@ registered_users = load_users()
 active_sessions = {}
 character_sheets = load_characters()
 
-app = create_app(registered_users=registered_users,
-                 active_sessions=active_sessions,
-                 character_sheets=character_sheets)
 
 def my_function():
     """Your custom function to execute."""
     print("Executing my scheduled task!")
+
 
 def update():
     """Function to execute tasks at every :00, :20, and :40."""
@@ -34,9 +32,10 @@ def update():
             time.sleep(1)  # Prevent multiple executions in the same second
         time.sleep(0.5)  # Check frequently for timing
 
-if __name__ == '__main__':
-    # Start the background thread for the scheduled task
-    task_thread = threading.Thread(target=update, daemon=True)
-    task_thread.start()
 
-    app.run(debug=True)
+task_thread = threading.Thread(target=update, daemon=True)
+task_thread.start()
+
+app = create_app(registered_users=registered_users,
+                 active_sessions=active_sessions,
+                 character_sheets=character_sheets)
