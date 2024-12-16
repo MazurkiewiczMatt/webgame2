@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 
 from server_app import create_app
-from state_management import load_characters, load_users
+from state_management import load_characters, load_users, save_characters
 
 # Add your specific path if needed for importing
 path = '/home/Mazurkiewicz/webgame/webgame2'
@@ -17,11 +17,13 @@ character_sheets = load_characters()
 
 
 def update_function():
-    for character in character_sheets:
+    characters = load_characters()
+    for character in characters:
         if "age" in character:
             character["age"] += 1
         else:
             character["age"] = 1
+    save_characters(characters)
 
 
 def update():
