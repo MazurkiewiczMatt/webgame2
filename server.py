@@ -25,7 +25,7 @@ def update():
     """Function to execute tasks at every :00, :20, and :40."""
     while True:
         now = datetime.now()
-        if now.minute % 20 == 0 and now.second == 0:
+        if now.minute % 1 == 0 and now.second == 0:
             print(f"Update executed at {now}")
             # Call your desired function here
             my_function()
