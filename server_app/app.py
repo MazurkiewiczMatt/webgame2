@@ -1,13 +1,39 @@
 # app.py
 from flask import Flask, render_template
+import threading
+import time
+from datetime import datetime
 
 from .authentication import signup, login, logout
-from .characters_management import character_sheet, create_character
+from .characters_management import character_sheet, create_character, load_characters, save_characters
+
+def update_function():
+    characters = load_characters()
+    for character in characters:
+        if "age" in character:
+            character["age"] += 1
+        else:
+            character["age"] = 1
+    save_characters(characters)
+
+
+def update():
+    """Function to execute tasks at every :00, :20, and :40."""
+    while True:
+        now = datetime.now()
+        if now.minute % 1 == 0 and now.second == 0:
+            update_function()
+            time.sleep(1)  # Prevent multiple executions in the same second
+        time.sleep(0.5)  # Check frequently for timing
 
 
 
-def create_app(registered_users=None, active_sessions=None, character_sheets=None):
+
+def create_app(registered_users=None, active_sessions=None):
     app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
+
+    task_thread = threading.Thread(target=update, daemon=True)
+    task_thread.start()
 
     @app.route('/')
     def main_app():
