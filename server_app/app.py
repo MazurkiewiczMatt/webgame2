@@ -8,11 +8,11 @@ from .characters_management import character_sheet, create_character, load_chara
 
 def update_function():
     characters = load_characters()
-    for character in characters:
-        if "age" in character:
-            character["age"] += 1
+    for character in characters.keys():
+        if "age" in characters[character].keys():
+            characters[character]["age"] += 1
         else:
-            character["age"] = 1
+            characters[character]["age"] = 1
     save_characters(characters)
     schedule_next_update()
 
