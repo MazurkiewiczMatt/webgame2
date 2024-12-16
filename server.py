@@ -16,9 +16,12 @@ active_sessions = {}
 character_sheets = load_characters()
 
 
-def my_function():
-    """Your custom function to execute."""
-    print("Executing my scheduled task!")
+def update_function():
+    for character in character_sheets:
+        if "age" in character:
+            character["age"] += 1
+        else:
+            character["age"] = 1
 
 
 def update():
@@ -28,7 +31,7 @@ def update():
         if now.minute % 1 == 0 and now.second == 0:
             print(f"Update executed at {now}")
             # Call your desired function here
-            my_function()
+            update_function()
             time.sleep(1)  # Prevent multiple executions in the same second
         time.sleep(0.5)  # Check frequently for timing
 
