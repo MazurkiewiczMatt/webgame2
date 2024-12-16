@@ -30,7 +30,7 @@ def schedule_next_update():
 def create_app(registered_users=None, active_sessions=None):
     app = Flask(__name__, template_folder='/home/Mazurkiewicz/webgame/webgame2/templates/')
 
-    schedule_next_update()
+    update_function()
 
     @app.route('/')
     def main_app():
